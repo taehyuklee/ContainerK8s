@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import spring.redis.domain.entity.Person;
 import spring.redis.domain.repository.PersonRedisRepository;
+import spring.redis.service.RedisService;
 
 import java.util.Optional;
 
@@ -13,6 +14,9 @@ class RedisApplicationTests {
 
 	@Autowired
 	private PersonRedisRepository repo;
+
+	@Autowired
+	private RedisService redisService;
 
 	@Test
 	void test() {
@@ -31,6 +35,23 @@ class RedisApplicationTests {
 
 		// 삭제
 		repo.delete(person);
+	}
+
+	@Test
+	void realTest(){
+
+		Person p1 = new Person("lee", 33);
+
+		repo.save(p1);
+
+		Person person = repo.findPersonByName("lee").get();
+
+//		redisService.create();
+//
+//		Person person = redisService.read();
+
+		System.out.println(person);
+
 	}
 
 }
