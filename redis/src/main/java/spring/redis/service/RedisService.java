@@ -18,10 +18,10 @@ public class RedisService {
     //Create
     public void create(Person person) throws Exception {
 
-        Optional<Person> newEntity = Optional.ofNullable(personRedisRepository.findPersonByName(person.getName()))
+        Optional<Person> personOpt = Optional.ofNullable(personRedisRepository.findPersonByName(person.getName()))
                 .orElseThrow(() -> new Exception("[" + person.getName()  + "]  이미 등록된 사용자 입니다."));
 
-        personRedisRepository.save(person);
+        personRedisRepository.save(personOpt.get());
     }
 
 
