@@ -38,19 +38,28 @@ class RedisApplicationTests {
 	}
 
 	@Test
-	void realTest(){
+	void realTest() throws Exception {
 
+		//Create
 		Person p1 = new Person("lee", 33);
+		redisService.create(p1);
 
-		repo.save(p1);
+		//Read
+		System.out.println(redisService.read("lee"));
 
-		Person person = repo.findPersonByName("lee").get();
+		//Update
+		Person p2 = new Person("lee", 23);
+		redisService.update(p2);
 
-//		redisService.create();
-//
-//		Person person = redisService.read();
+		//Read
+		System.out.println(redisService.read("lee"));
 
-		System.out.println(person);
+		//Delete
+		redisService.delete("lee");
+
+		//Read (확인차원)
+		//System.out.println(redisService.read("lee"));
+
 
 	}
 

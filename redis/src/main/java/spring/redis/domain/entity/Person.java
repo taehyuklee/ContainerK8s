@@ -26,5 +26,8 @@ public class Person {
         this.cretDt = LocalDateTime.now();
     }
 
+    public void setId(String newId){
+        this.id = newId;
+    }
 
 }
