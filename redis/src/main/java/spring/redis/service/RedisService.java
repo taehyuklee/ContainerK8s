@@ -26,39 +26,38 @@ public class RedisService {
 
 
     //Read
-    public Person read(Person person) throws Exception {
+    public Person read(String personNm) throws Exception {
 
-        Optional<Person> entity = Optional.ofNullable(personRedisRepository.findPersonByName(person.getName()))
+        Optional<Person> entity = Optional.ofNullable(personRedisRepository.findPersonByName(personNm))
                 .orElseThrow(() -> new Exception(" 등록되지 않은 사용자 입니다."));
 
         Person returnPerson = null;
         if(entity.isPresent()){
-            returnPerson = personRedisRepository.findPersonByName(person.getName()).get();
+            returnPerson = personRedisRepository.findPersonByName(personNm).get();
         }
         return returnPerson;
     }
 
     //Update
-    public Person update(Person person) throws Exception {
+    public void update(Person person) throws Exception {
 
         Optional<Person> oldEntity = Optional.ofNullable(personRedisRepository.findPersonByName(person.getName()))
                 .orElseThrow(() -> new Exception("사용자 정보가 없다."));
 
-        Person returnPerson = null;
         if(oldEntity.isPresent()) {
-            returnPerson = personRedisRepository.save(person);
+            personRedisRepository.save(person);
         }
-        return returnPerson;
+        return;
     }
 
     //Delete
-    public void delete(Person person) throws Exception {
+    public void delete(String personNm) throws Exception {
 
-        Optional<Person> entiy = Optional.ofNullable(personRedisRepository.findPersonByName(person.getName()))
+        Optional<Person> entiy = Optional.ofNullable(personRedisRepository.findPersonByName(personNm))
                 .orElseThrow(() -> new Exception("삭제할 대상이 존재하지 않습니다"));
 
         if(entiy.isPresent()) {
-            personRedisRepository.delete(person);
+            personRedisRepository.delete(entiy.get());
         }
     }
 

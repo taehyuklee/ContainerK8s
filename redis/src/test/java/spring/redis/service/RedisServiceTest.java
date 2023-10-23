@@ -1,5 +1,7 @@
 package spring.redis.service;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +27,8 @@ class RedisServiceTest {
     PersonRedisRepository personRedisRepository;
 
     @Test
+    @Order(1)
+    @DisplayName("Redis 생성")
     void create() throws Exception {
 
         /************************  Given ************************/
@@ -40,14 +44,56 @@ class RedisServiceTest {
     }
 
     @Test
-    void read() {
+    @Order(2)
+    @DisplayName("Redis 조회")
+    void read() throws Exception {
+
+        /************************  Given ************************/
+        String personNm = "lee";
+        Person person = new Person("lee", 33);
+        Optional<Person> optPerson = Optional.of(person);
+
+        /************************  When ************************/
+        Mockito.when(personRedisRepository.findPersonByName(personNm)).thenReturn(optPerson);
+
+        /************************  Then ************************/
+        assertEquals(person.getName(), testTarget.read(personNm).getName());
+
     }
 
     @Test
-    void update() {
+    @Order(3)
+    @DisplayName("Redis 수정")
+    void update() throws Exception {
+
+        /************************  Given ************************/
+        Person person = new Person("lee", 23);
+        Optional<Person> optPerson = Optional.of(person);
+
+        /************************  When ************************/
+        Mockito.when(personRedisRepository.findPersonByName(person.getName())).thenReturn(optPerson);
+
+        /************************  Then ************************/
+        testTarget.create(person);
+        Mockito.verify(personRedisRepository, Mockito.times(1)).save(person);
     }
 
     @Test
-    void delete() {
+    @Order(4)
+    @DisplayName("Redis 삭제")
+    void delete() throws Exception {
+
+        /************************  Given ************************/
+        String personNm = "lee";
+        Person person = new Person("lee", 23);
+        Optional<Person> optPerson = Optional.of(person);
+
+        /************************  When ************************/
+        Mockito.when(personRedisRepository.findPersonByName(personNm)).thenReturn(optPerson);
+
+        /************************  Then ************************/
+        testTarget.delete(personNm);
+        Mockito.verify(personRedisRepository, Mockito.times(1)).delete(person);
+
     }
 }
