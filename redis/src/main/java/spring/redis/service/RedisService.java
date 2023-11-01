@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import spring.redis.domain.entity.Person;
 import spring.redis.domain.repository.PersonRedisRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Service
@@ -56,5 +57,17 @@ public class RedisService {
         personRedisRepository.deleteById(result.getId());
 
     }
+
+    /****************** Redis Session set & get Service ******************/
+    public void session(HttpSession httpSession) throws Exception {
+        String number = "1";
+        httpSession.setAttribute("test",number);
+    }
+
+    public Object getSession(HttpSession httpSession) throws Exception {
+        System.out.println(httpSession.getAttribute("test"));
+        return httpSession.getAttribute("test");
+    }
+
 
 }

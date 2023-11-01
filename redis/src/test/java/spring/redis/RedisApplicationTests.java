@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import spring.redis.domain.entity.Person;
 import spring.redis.domain.repository.PersonRedisRepository;
 import spring.redis.service.RedisService;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @SpringBootTest
@@ -56,12 +58,28 @@ class RedisApplicationTests {
 		System.out.println(redisService.read("lee"));
 
 		//Delete
-		redisService.delete("lee");
+//		redisService.delete("lee");
 
 		//Read (확인차원)
 		//System.out.println(redisService.read("lee"));
 
 
+	}
+
+	@Test
+	void sessionTest(HttpSession httpSession) throws Exception {
+//
+//		this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+//
+//		// ...
+//		mockMvc.perform(post("url")
+//						.session(session) // 추가
+//						.content(content)
+//						.contentType(MediaType.APPLICATION_JSON)
+//						.accept(MediaType.APPLICATION_JSON))
+//				.andExpect(status().isOk());
+//
+//		redisService.session(httpSession);
 	}
 
 }
