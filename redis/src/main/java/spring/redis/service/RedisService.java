@@ -58,15 +58,18 @@ public class RedisService {
 
     }
 
+    public long count(){
+        return personRedisRepository.count();
+    }
+
     /****************** Redis Session set & get Service ******************/
-    public void session(HttpSession httpSession) throws Exception {
-        String number = "1";
+    public void setSession(HttpSession httpSession) throws Exception {
+        String number = "test-user";
         httpSession.setAttribute("test",number);
     }
 
-    public Object getSession(HttpSession httpSession) throws Exception {
-        System.out.println(httpSession.getAttribute("test"));
-        return httpSession.getAttribute("test");
+    public String getSession(HttpSession httpSession) throws Exception {
+        return (String) httpSession.getAttribute("test");
     }
 
 

@@ -1,4 +1,4 @@
-package spring.redis.service;
+package spring.redis.service.mock_test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import spring.redis.domain.entity.Person;
 import spring.redis.domain.repository.PersonRedisRepository;
+import spring.redis.service.RedisService;
 
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -96,4 +97,6 @@ class RedisServiceTest {
         Mockito.verify(personRedisRepository, Mockito.times(1)).delete(person);
 
     }
+
+
 }

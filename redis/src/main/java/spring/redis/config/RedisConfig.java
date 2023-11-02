@@ -18,6 +18,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import javax.servlet.http.HttpSessionListener;
 
 @Configuration
+@EnableRedisHttpSession
 public class RedisConfig {
 
     @Value("${spring.redis.host}")
@@ -42,6 +43,12 @@ public class RedisConfig {
         return lettuceConnectionFactory;
     }
 
+    @Bean //이거 하지 않으면 룬문자가 생김.
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return new GenericJackson2JsonRedisSerializer();
+    }
+
+
 //    @Bean
 //    public RedisTemplate<String, Object> redisTemplate() {
 //        final RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -64,11 +71,6 @@ public class RedisConfig {
 //        return stringRedisTemplate;
 //    }
 
-
-//    @Bean //이거 하지 않으면 룬문자가 생김.
-//    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
-//        return new GenericJackson2JsonRedisSerializer();
-//    }
 
 
 }

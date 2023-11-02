@@ -3,6 +3,7 @@ server:
   servlet:
     session:
       timeout: 60
+      store-type: redis
 
 spring:
   redis:
