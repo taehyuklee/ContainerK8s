@@ -3,7 +3,6 @@ server:
   servlet:
     session:
       timeout: 60
-      store-type: redis
 
 spring:
   redis:
@@ -15,3 +14,11 @@ spring:
     host: www.taylee.link
     port: 53994
     password: new1234!
+  session:
+    store-type: redis
+    redis:
+      namespace: spring:session:admin
+      flush-mode: on_save
+      #cleanup-cron: 0/5 * * * * *
+
+

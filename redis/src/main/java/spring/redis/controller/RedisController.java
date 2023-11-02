@@ -1,5 +1,6 @@
 package spring.redis.controller;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,16 @@ public class RedisController {
         HttpSession session = servletRequest.getSession();
         System.out.println("set session Id 확인 " + session.getId());
         redisService.setSession(session);
+    }
+
+    @GetMapping("/immediate-test")
+    public String immediate(HttpServletRequest servletRequest) throws Exception {
+        System.out.println("flush-on test중입니다.");
+        HttpSession session = servletRequest.getSession();
+        System.out.println("get session Id 확인 " + session.getId());
+        redisService.setSession(session);
+        Thread.sleep(10000000);
+        return "test에 성공하셨습니다";
     }
 
 }

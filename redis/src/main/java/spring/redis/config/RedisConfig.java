@@ -18,7 +18,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import javax.servlet.http.HttpSessionListener;
 
 @Configuration
-@EnableRedisHttpSession
 public class RedisConfig {
 
     @Value("${spring.redis.host}")
@@ -47,7 +46,6 @@ public class RedisConfig {
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         return new GenericJackson2JsonRedisSerializer();
     }
-
 
 //    @Bean
 //    public RedisTemplate<String, Object> redisTemplate() {
