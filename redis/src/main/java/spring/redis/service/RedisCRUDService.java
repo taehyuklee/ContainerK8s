@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RedisService {
+public class RedisCRUDService {
 
     private final PersonRedisRepository personRedisRepository;
 

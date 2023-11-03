@@ -23,7 +23,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'org.springframework.session:spring-session-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis' //spring-session을 이용하기 위함.
+	implementation 'org.springframework.boot:spring-boot-starter-cache' //spring cache를 사용하기 위함.
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

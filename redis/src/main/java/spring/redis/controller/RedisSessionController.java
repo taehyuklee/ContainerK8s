@@ -1,25 +1,23 @@
 package spring.redis.controller;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import spring.redis.service.RedisService;
+import spring.redis.service.RedisCRUDService;
+import spring.redis.service.RedisCacheService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/redis")
-public class RedisController {
+public class RedisSessionController {
 
-    private final RedisService redisService;
+    private final RedisCRUDService redisService;
 
     @GetMapping("/session")
     public String redisGetSession(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws Exception {

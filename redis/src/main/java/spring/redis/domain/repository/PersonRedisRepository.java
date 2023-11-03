@@ -5,7 +5,7 @@ import spring.redis.domain.entity.Person;
 
 import java.util.Optional;
 
-public interface PersonRedisRepository extends CrudRepository<Person, String> {
+public interface PersonRedisRepository extends CrudRepository<Person, Long> {
     Optional<Person> findPersonByName(String name);
 
 }

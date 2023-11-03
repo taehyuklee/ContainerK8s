@@ -10,19 +10,17 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import spring.redis.domain.entity.Person;
 import spring.redis.domain.repository.PersonRedisRepository;
-import spring.redis.service.RedisService;
+import spring.redis.service.RedisCRUDService;
 
 import java.util.Optional;
-import java.util.OptionalInt;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.only;
 
 @ExtendWith(MockitoExtension.class)
 class RedisServiceTest {
 
     @InjectMocks
-    RedisService testTarget;
+    RedisCRUDService testTarget;
 
     @Mock
     PersonRedisRepository personRedisRepository;

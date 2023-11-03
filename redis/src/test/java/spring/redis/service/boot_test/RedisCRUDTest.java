@@ -3,14 +3,10 @@ package spring.redis.service.boot_test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import spring.redis.domain.entity.Person;
-import spring.redis.domain.repository.PersonRedisRepository;
-import spring.redis.service.RedisService;
-
-import java.util.Optional;
+import spring.redis.service.RedisCRUDService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RedisCRUDTest {
 
     @Autowired
-    private RedisService redisService;
+    private RedisCRUDService redisService;
 
     @Test
     @Order(1)

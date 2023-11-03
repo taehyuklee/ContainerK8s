@@ -16,7 +16,7 @@ public class Person {
 
     public static final Long DEFUALT_TTL = 1800L;
     @Id
-    private String id;
+    private Long id;
     @Indexed
     private String name;
     private Integer age;
@@ -32,7 +32,7 @@ public class Person {
         this.expiroation = DEFUALT_TTL;
     }
 
-    public void setId(String newId){
+    public void setId(Long newId){
         this.id = newId;
     }
 
