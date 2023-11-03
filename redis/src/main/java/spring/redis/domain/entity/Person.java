@@ -7,12 +7,13 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @ToString
 @RedisHash(value= "people", timeToLive = 1800)
-public class Person {
+public class Person implements Serializable {
 
     public static final Long DEFUALT_TTL = 1800L;
     @Id

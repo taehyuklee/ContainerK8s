@@ -11,30 +11,37 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/cache")
+@RequestMapping("/redis/cache")
 public class RedisCacheController {
 
     private final RedisCacheService redisCacheService;
 
     @PostMapping("/person")
-    public void redisCacheCreate(Person person, HttpServletRequest servletRequest) throws Exception {
+    public String redisCacheCreate(@RequestBody Person person, HttpServletRequest servletRequest) throws Exception {
         redisCacheService.save(person);
-        log.info("Person이 저장되었습니다");
+        return "success";
     }
 
     @GetMapping("/person")
-    public Person redisCacheRead(String name, HttpServletRequest servletRequest) throws Exception {
+    public Person redisCacheRead(@RequestParam(value = "name") String name, HttpServletRequest servletRequest) throws Exception {
         return redisCacheService.findPersonById(name);
     }
 
     @PutMapping("/person")
-    public void redisCacheUpdate(Person person, HttpServletRequest servletRequest) throws Exception {
+    public String redisCacheUpdate(@RequestBody Person person, HttpServletRequest servletRequest) throws Exception {
         redisCacheService.update(person);
+        return "success";
     }
 
     @DeleteMapping("/person")
-    public void redisCacheDelete(String name, HttpServletRequest servletRequest) throws Exception {
+    public String redisCacheDelete(@RequestParam String name, HttpServletRequest servletRequest) throws Exception {
         redisCacheService.delete(name);
+        return "success";
+    }
+
+    @GetMapping("/check_all")
+    public void cehck() throws Exception {
+        redisCacheService.checkAll();
     }
 
 }

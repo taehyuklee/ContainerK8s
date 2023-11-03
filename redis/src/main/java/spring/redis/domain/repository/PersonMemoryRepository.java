@@ -25,17 +25,18 @@ public class PersonMemoryRepository {
 
         //personNameRepo 업데이트
         personsNameRepo.put(person.getName(), person);
+        log.info("name: {} 이 생성되었습니다.", person.getName());
 
     }
 
 
     public Person getByName(String name){
-        log.info("DB에서 person을 조회합니다");
+        log.info("DB에서 name: {}을 조회합니다", name);
         return personsNameRepo.get(name);
     }
 
     public Person getById(Long id){
-        log.info("DB에서 person을 조회합니다");
+        log.info("DB에서 id: {}을 조회합니다", id);
         return personsIdRepo.get(id);
     }
 
@@ -50,6 +51,7 @@ public class PersonMemoryRepository {
 
         //person Name에서 조회해서 지운다.
         personsNameRepo.remove(name);
+        log.info("name: {} 이 삭제되었습니다.", name);
     }
 
     public void updateByName(Person person){
@@ -63,6 +65,13 @@ public class PersonMemoryRepository {
         //person Name에서 조회해서 업데이트 한다.
         personsNameRepo.remove(target_person.getName(), person);
 
+        log.info("name: {} 이 수정되었습니다.", person.getName());
+
+    }
+
+    public void checkAll(){
+        System.out.println("personsIdRepo: " + personsIdRepo);
+        System.out.println("personsNameRepo: " + personsNameRepo);
     }
 
 

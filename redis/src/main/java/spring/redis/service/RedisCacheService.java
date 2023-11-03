@@ -30,4 +30,8 @@ public class RedisCacheService {
         personMemoryRepository.deleteByName(name);
     }
 
+    public void checkAll(){
+        personMemoryRepository.checkAll();
+    }
+
 }
