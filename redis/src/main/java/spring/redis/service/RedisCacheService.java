@@ -1,6 +1,8 @@
 package spring.redis.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import spring.redis.domain.entity.Person;
@@ -21,11 +23,12 @@ public class RedisCacheService {
         return personMemoryRepository.getByName(name);
     }
 
-
+    @CachePut(key = "#name", value = "personCache")
     public void update(Person person) throws Exception {
         personMemoryRepository.updateByName(person);
     }
 
+    @CacheEvict(key = "#name", value = "personCache")
     public void delete(String name) throws Exception {
         personMemoryRepository.deleteByName(name);
     }
