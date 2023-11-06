@@ -55,11 +55,11 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
         /****** Set Serializable options (Key-value, hash, set) *******/
-        redisTemplate.setKeySerializer(RedisSerializer.string());
-        redisTemplate.setValueSerializer(RedisSerializer.java());
-        redisTemplate.setHashKeySerializer(RedisSerializer.string());
-        redisTemplate.setHashValueSerializer(RedisSerializer.java());
-        //redisTemplate.setDefaultSerializer(new StringRedisSerializer()); //이걸 사용하면, StringRedisTemplate을 사용하게 된다.
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());    //key serializer
+//        redisTemplate.setValueSerializer(new StringRedisSerializer());  //value serializer
+//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+        redisTemplate.setDefaultSerializer(new StringRedisSerializer()); //이걸 사용하면, StringRedisTemplate을 사용하게 된다.
 
         return redisTemplate;
     }
