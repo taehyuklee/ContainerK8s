@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.redis.service.RedisCRUDService;
 import spring.redis.service.RedisCacheService;
+import spring.redis.service.RedisSessionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,23 +15,23 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/redis")
+@RequestMapping("/redis/session")
 public class RedisSessionController {
 
-    private final RedisCRUDService redisService;
+    private final RedisSessionService redisSessionService;
 
-    @GetMapping("/session")
+    @GetMapping("/")
     public String redisGetSession(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws Exception {
         HttpSession session = servletRequest.getSession();
         System.out.println("get session Id 확인 " + session.getId());
-        return redisService.getSession(session);
+        return redisSessionService.getSession(session);
     }
 
-    @PostMapping("/session")
+    @PostMapping("/")
     public void redisSetSession(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws Exception {
         HttpSession session = servletRequest.getSession();
         System.out.println("set session Id 확인 " + session.getId());
-        redisService.setSession(session);
+        redisSessionService.setSession(session);
     }
 
     @GetMapping("/immediate-test")
@@ -38,7 +39,7 @@ public class RedisSessionController {
         System.out.println("flush-on test중입니다.");
         HttpSession session = servletRequest.getSession();
         System.out.println("get session Id 확인 " + session.getId());
-        redisService.setSession(session);
+        redisSessionService.setSession(session);
         Thread.sleep(10000000);
         return "test에 성공하셨습니다";
     }

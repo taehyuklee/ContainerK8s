@@ -6,8 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
@@ -39,26 +42,39 @@ public class RedisConfig {
         return new GenericJackson2JsonRedisSerializer();
     }
 
-//    @Bean
-//    public RedisTemplate<String, Object> redisTemplate() {
-//        final RedisTemplate<String, Object> template = new RedisTemplate<>();
-//        template.setConnectionFactory(redisConnectionFactory());
-//        template.setDefaultSerializer(new StringRedisSerializer());
-//        return template;
-//    }
+    /**
+     *  RedisTemplate의 경우 redisTemplate을 사용할수도 있지만, StringRedisTemplate를 사용할수 있다.
+     * 이 두 설정의 핵심 차이는 serialization 방법의 차이다.
+     *
+     * @param redisConnectionFactory
+     * @return
+     */
+    @Bean
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        final RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
 
-    //Redis Serialize 설정 (우리가 직접 넣고 뺄때)
-//    @Bean
-//    public StringRedisTemplate stringRedisTemplate() {
-//        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
-//
-//        stringRedisTemplate.setConnectionFactory(redisConnectionFactory());
-//
-//        stringRedisTemplate.setKeySerializer(new StringRedisSerializer());
-//        stringRedisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-//        stringRedisTemplate.setDefaultSerializer(new StringRedisSerializer());
-//        stringRedisTemplate.afterPropertiesSet();
-//        return stringRedisTemplate;
-//    }
+        /****** Set Serializable options (Key-value, hash, set) *******/
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+        redisTemplate.setValueSerializer(RedisSerializer.java());
+        redisTemplate.setHashKeySerializer(RedisSerializer.string());
+        redisTemplate.setHashValueSerializer(RedisSerializer.java());
+        //redisTemplate.setDefaultSerializer(new StringRedisSerializer()); //이걸 사용하면, StringRedisTemplate을 사용하게 된다.
+
+        return redisTemplate;
+    }
+
+    //@Bean //StringRedisTemplate을 이용하고자 한다면 Bean등록을 하도록 하자.
+    public StringRedisTemplate stringRedisTemplate() {
+        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+
+        stringRedisTemplate.setConnectionFactory(redisConnectionFactory());
+
+        stringRedisTemplate.setKeySerializer(new StringRedisSerializer());
+        stringRedisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        stringRedisTemplate.setDefaultSerializer(new StringRedisSerializer());
+        stringRedisTemplate.afterPropertiesSet();
+        return stringRedisTemplate;
+    }
 
 }

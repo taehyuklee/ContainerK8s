@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import spring.redis.domain.entity.Person;
 import spring.redis.domain.repository.PersonRedisRepository;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Service
@@ -62,15 +61,6 @@ public class RedisCRUDService {
         return personRedisRepository.count();
     }
 
-    /****************** Redis Session set & get Service ******************/
-    public void setSession(HttpSession httpSession) throws Exception {
-        String number = "test-user";
-        httpSession.setAttribute("test",number);
-    }
-
-    public String getSession(HttpSession httpSession) throws Exception {
-        return (String) httpSession.getAttribute("test");
-    }
 
 
 }
