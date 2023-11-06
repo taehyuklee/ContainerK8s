@@ -3,14 +3,11 @@ package spring.redis.service.boot_test;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import spring.redis.domain.entity.Person;
 import spring.redis.service.RedisCRUDService;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /***
  * https://sabarada.tistory.com/105 (reference blog)
@@ -133,6 +130,104 @@ public class RedisTemplateTest {
         *
         *
         * */
+
+    }
+
+    @Test
+    public void testForSet(){
+        String key = "set_key";
+
+        SetOperations<String, String> setOperations = redisTemplate.opsForSet();
+
+        setOperations.add(key, "G");
+        setOperations.add(key, "i");
+        setOperations.add(key, " ");
+        setOperations.add(key, "H");
+        setOperations.add(key, "e");
+        setOperations.add(key, "l");
+        setOperations.add(key, "l");
+        setOperations.add(key, "o");
+
+        //resultRange (https://docs.spring.io/spring-data/redis/docs/current/api/org/springframework/data/redis/core/SetOperations.html 공식 문서)
+        Set<String> getAllMembers = setOperations.members(key);
+        System.out.println("members = " + Arrays.toString(getAllMembers.toArray()));
+
+        //getSize
+        Long size = setOperations.size(key);
+        System.out.println("size: " + size);
+
+        //Cursor (pattern에 맞춰서 제한 수만큼 출력)
+        Cursor<String> cursor = setOperations.scan(key, ScanOptions.scanOptions().match("*").count(3).build());
+        /*
+        * ScanOptions.scanOptions()를 호출하여 스캔 옵션을 설정합니다. 여기서 다음 옵션을 설정합니다.
+        *   match("*"): 이 옵션은 스캔된 항목의 이름 패턴을 지정합니다. "*"는 모든 항목을 선택하는 와일드카드 패턴입니다. 즉, 모든 항목을 스캔하려고 합니다.
+        *   count(3): 스캔 중에 반환할 항목 수를 제한합니다. 여기서는 3개의 항목을 반환하도록 설정되어 있습니다.
+        * */
+
+        //출력
+        while(cursor.hasNext()){
+            System.out.println("cursor= " + cursor.next());
+        }
+
+    }
+
+    //SortedSet
+    @Test
+    public void testSortedSet(){
+        //CLI 조회 명령어 - zrange myzset 0, -1 withscores (https://ryu-e.tistory.com/9)
+        String key = "sorted_set_key";
+
+        ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
+
+        //score를 기준으로 오름차순으로 정렬되는듯하다.
+        zSetOperations.add(key, "G", 1);
+        zSetOperations.add(key, "i", 2);
+        zSetOperations.add(key, " ", 3);
+        zSetOperations.add(key, "H", 4);
+        zSetOperations.add(key, "e", 5);
+        zSetOperations.add(key, "l", 8);
+        zSetOperations.add(key, "l", 9);
+        zSetOperations.add(key, "o", 111);
+
+        //print (from to end)
+        Set<String> range = zSetOperations.range(key, 0,5);
+        System.out.println("range= " + Arrays.toString(range.toArray()));
+
+        //getSize
+        Long size = zSetOperations.size(key);
+        System.out.println("size: " + size);
+
+        //scoreRange (score에 대해 제한을 걸어 출력이 가능하다)
+        Set<String> scoreRange = zSetOperations.rangeByScore(key,0,5); //5이하인 score들만 출력하게 된다.
+        System.out.println("scoreRange = " + Arrays.toString(scoreRange.toArray()));
+
+    }
+
+    //Hash
+    @Test
+    public void testHash(){
+        //CLI - 검색 명령어 hgetall myHash, HGET myHash field1
+        String key = "hash_key";
+
+        HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
+
+        hashOperations.put(key, "Hello", "hi");
+        hashOperations.put(key, "Hello2", "hi2");
+        hashOperations.put(key, "Hello3", "hi3");
+
+        String hello = hashOperations.get(key, "Hello"); //맨 앞의 key는 redis의 key이며 그 뒤의 "Hello"는 Map의 key이다.
+        System.out.println("hello =? : " + hello);
+
+        /* Hash의 경우 HashOperations<String, Object, Object>형태로 쓰이기도 한다 -> 의문, 아니 Integer나, Person과 같은 구현체는 안되더니;;
+        Object는 들어가지나? -> List에서도 Object가 잘 들어가지는지 확인해보기*/
+
+        //Entries를 통해서 하나의 Map - key-value만 뽑아서 출력하기
+        Map<String, String > entries = hashOperations.entries(key); //Java에서도 Hashmap Entries뽑잖아
+        System.out.println("entires= " + entries.get("Hello2"));
+
+        //getSize
+        Long size = hashOperations.size(key);
+        System.out.println("size= " + size);
 
     }
 
