@@ -1,6 +1,8 @@
 package spring.redis.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @RedisHash(value= "people", timeToLive = 1800)
+@NoArgsConstructor
 public class Person implements Serializable {
 
     public static final Long DEFUALT_TTL = 1800L;
@@ -37,4 +40,7 @@ public class Person implements Serializable {
         this.id = newId;
     }
 
+    public void setCretDt(LocalDateTime localDateTime){
+        this.cretDt = localDateTime;
+    }
 }

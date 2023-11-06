@@ -19,6 +19,6 @@ spring:
     redis:
       namespace: spring:session:admin
       flush-mode: on_save
-      #cleanup-cron: 0/5 * * * * *
+      cleanup-cron: 0/5 * * * * *
 
 

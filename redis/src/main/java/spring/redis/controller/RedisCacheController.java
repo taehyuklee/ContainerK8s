@@ -28,9 +28,8 @@ public class RedisCacheController {
     }
 
     @PutMapping("/person")
-    public String redisCacheUpdate(@RequestBody Person person, HttpServletRequest servletRequest) throws Exception {
-        redisCacheService.update(person);
-        return "success";
+    public Person redisCacheUpdate(@RequestBody Person person, HttpServletRequest servletRequest) throws Exception {
+        return redisCacheService.update(person);
     }
 
     @DeleteMapping("/person")
@@ -40,8 +39,8 @@ public class RedisCacheController {
     }
 
     @GetMapping("/check_all")
-    public void cehck() throws Exception {
-        redisCacheService.checkAll();
+    public String cehck() throws Exception {
+        return redisCacheService.checkAll();
     }
 
 }
