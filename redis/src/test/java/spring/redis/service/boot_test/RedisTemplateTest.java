@@ -8,6 +8,7 @@ import spring.redis.domain.entity.Person;
 import spring.redis.service.RedisCRUDService;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /***
  * https://sabarada.tistory.com/105 (reference blog)
@@ -229,6 +230,87 @@ public class RedisTemplateTest {
         Long size = hashOperations.size(key);
         System.out.println("size= " + size);
 
+    }
+
+    /**
+     * https://gogo-jjm.tistory.com/35 참고 deleteKey 부터 ~ rename까지
+     * @throws InterruptedException
+     */
+    @Test
+    public void deleteKey() throws InterruptedException {
+
+        makeSample();
+
+        //redis-cli에서 확인하는 시간
+        Thread.sleep(3000);
+
+        //delete method 수행
+        redisTemplate.delete("list_key");
+    }
+
+    @Test
+    public void isExists() {
+
+        makeSample();
+
+        //delete method 수행
+        boolean exists = redisTemplate.hasKey("list_key");
+        System.out.println(exists);
+    }
+
+    @Test
+    public void setExpireTime() {
+
+        makeSample();
+        long expirationTIme = 10L;
+
+        //delete method 수행
+        redisTemplate.expire("list_key", expirationTIme, TimeUnit.SECONDS);
+
+        while(redisTemplate.hasKey("list_key")){
+
+        }
+        System.out.println("list_key가 Expiration 되었습니다");
+    }
+
+    @Test
+    public void findKeys(){
+        makeSample();
+
+        //모든 Pattern에 대해서 조회하기
+        Set<String> keys = redisTemplate.keys("*");
+        System.out.println(keys);
+        //결과 [list_key]
+    }
+
+    @Test
+    public void renameKey(){
+
+        makeSample();
+
+        redisTemplate.rename("list_key", "new_list_key");
+
+        //바뀐 이름 조회해보기
+        Set<String> keys = redisTemplate.keys("*");
+        System.out.println(keys);
+
+        //결과 [new_list_key]
+
+        /**
+         * Error in execution; nested exception is io.lettuce.core.RedisCommandExecutionException: ERR no such key
+         * Key가 없다면 위와 같은 에러가 표출된다. 즉, Error처리를 잘 해놔야 한다.
+         */
+    }
+
+
+
+
+    private void  makeSample(){
+        String key = "list_key";
+
+        Person p1 = new Person("lee", 33);
+        ListOperations<String, String> listOperations = redisTemplate.opsForList();
+        listOperations.rightPush(key,p1.toString());
     }
 
 }

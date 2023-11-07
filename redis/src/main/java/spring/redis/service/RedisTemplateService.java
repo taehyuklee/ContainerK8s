@@ -12,7 +12,7 @@ public class RedisTemplateService {
 
     private final RedisTemplate redisTemplate;
 
-
+    //TestCode 참고
 
 
 }
