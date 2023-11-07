@@ -8,9 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import spring.redis.domain.entity.Person;
-import spring.redis.domain.repository.PersonRedisRepository;
-import spring.redis.service.RedisCRUDService;
+import spring.redis.storage.domain.entity.Person;
+import spring.redis.storage.domain.repository.PersonRedisRepository;
+import spring.redis.storage.service.RedisCRUDService;
 
 import java.util.Optional;
 

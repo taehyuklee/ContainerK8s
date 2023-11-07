@@ -1,10 +1,10 @@
-package spring.redis.controller;
+package spring.redis.storage.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import spring.redis.domain.entity.Person;
-import spring.redis.service.RedisCacheService;
+import spring.redis.storage.domain.entity.Person;
+import spring.redis.storage.service.RedisCacheService;
 
 import javax.servlet.http.HttpServletRequest;
 

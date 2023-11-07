@@ -1,4 +1,4 @@
-package spring.redis.config;
+package spring.redis.storage.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

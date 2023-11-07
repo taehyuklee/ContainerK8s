@@ -1,8 +1,8 @@
-package spring.redis.domain.repository;
+package spring.redis.storage.domain.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import spring.redis.domain.entity.Person;
+import spring.redis.storage.domain.entity.Person;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
