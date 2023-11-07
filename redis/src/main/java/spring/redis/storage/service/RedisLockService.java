@@ -22,8 +22,6 @@ public class RedisLockService {
         Person p1 = new Person(name, 23);
         p1.setId(1L); //id 1로 일단 세팅
 
-        redisLockRepository.lock(id);
-
         while(!redisLockRepository.lock(id)){
             System.out.println("I'm locked");
             Thread.sleep(300); //redis에 요청 보내는 횟수를 줄이고자 sleep으로 잠시 대기를 걸어준다. (임시방편)
@@ -32,11 +30,12 @@ public class RedisLockService {
         try{
             //redisCRUDService.create(p1);
             System.out.println("저장");
+            Thread.sleep(100000);
         }finally {
             redisLockRepository.unlock(id);
         }
 
-        Thread.sleep(10000000);
+
 
     }
 
