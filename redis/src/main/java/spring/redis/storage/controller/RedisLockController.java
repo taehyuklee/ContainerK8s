@@ -16,9 +16,19 @@ public class RedisLockController {
 
     private final RedisLockService redisLockService;
 
-    @GetMapping("/person")
+    @GetMapping("/crud/person")
     public void create(@RequestParam String name) throws Exception {
         redisLockService.lockCRUDSvc(name, 1L);
+    }
+
+    @GetMapping("/cache/person")
+    public void cache(@RequestParam String name) throws Exception {
+        redisLockService.lockCacheSvc(name, 1L);
+    }
+
+    @GetMapping("/file/person")
+    public void file() throws Exception {
+        redisLockService.lockFile(1L);
     }
 
 }
