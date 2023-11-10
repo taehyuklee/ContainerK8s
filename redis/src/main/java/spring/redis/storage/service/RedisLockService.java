@@ -6,7 +6,6 @@ import spring.redis.lock.lettuce.RedisLockRepository;
 import spring.redis.storage.domain.entity.Person;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
