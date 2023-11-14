@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import spring.redis.storage.domain.entity.Person;
 import spring.redis.storage.domain.repository.PersonMemoryRepository;
@@ -35,6 +36,22 @@ public class RedisCacheService {
 
     public String checkAll(){
         return personMemoryRepository.checkAll();
+    }
+
+    //Spring data에 있는 Local cache로도 Spring Data와 연동이 되는지
+    //local cache, redis cache 동기화
+
+    @Caching(cacheable ={
+        @Cacheable(value = "localCache", cacheManager = "localCacheManager",unless="#result==null"),
+        @Cacheable(key = "#name", value = "personCache", cacheManager = "redisCacheManager")
+    })
+    public Person findChainCaching(String name){
+        return personMemoryRepository.getByName(name);
+    }
+
+    @Cacheable(key = "#name", value = "personCache", cacheManager = "compositeCacheManager")
+    public Person findCompositeCaching(String name){
+        return personMemoryRepository.getByName(name);
     }
 
 }

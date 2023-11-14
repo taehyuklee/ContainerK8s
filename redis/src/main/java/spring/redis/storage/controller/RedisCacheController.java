@@ -43,4 +43,13 @@ public class RedisCacheController {
         return redisCacheService.checkAll();
     }
 
+    @GetMapping("/composite/person")
+    public Person compositeCaching(@RequestParam(value = "name") String name) throws Exception {
+        return redisCacheService.findCompositeCaching(name);
+    }
+
+    @GetMapping("/chain/person")
+    public Person cahinCaching(@RequestParam(value = "name") String name) throws Exception {
+        return redisCacheService.findChainCaching(name);
+    }
 }
