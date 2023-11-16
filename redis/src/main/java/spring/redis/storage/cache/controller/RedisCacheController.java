@@ -43,6 +43,8 @@ public class RedisCacheController {
         return redisCacheService.checkAll();
     }
 
+    /*********** chaining **************/
+
     @GetMapping("/composite/person")
     public Person compositeCaching(@RequestParam(value = "name") String name) throws Exception {
         return redisCacheService.findCompositeCaching(name);
@@ -56,5 +58,15 @@ public class RedisCacheController {
     @PutMapping("/chain/person")
     public Person cahinUpdateCaching(@RequestBody Person person) throws Exception {
         return redisCacheService.updateChainCaching(person);
+    }
+
+    @DeleteMapping("/chain/person")
+    public void deleteUpdateCaching(@RequestParam String name) throws Exception {
+        redisCacheService.deleteChainCaching(name);
+    }
+
+    @DeleteMapping("/local/clear")
+    public void clearLocalCache(){
+        redisCacheService.clearLocalCache();
     }
 }
