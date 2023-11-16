@@ -1,11 +1,11 @@
-package spring.redis.storage.controller;
+package spring.redis.storage.session.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import spring.redis.storage.service.RedisSessionService;
+import spring.redis.storage.session.service.RedisSessionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

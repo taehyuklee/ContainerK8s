@@ -1,4 +1,4 @@
-package spring.redis.storage.domain.entity;
+package spring.redis.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

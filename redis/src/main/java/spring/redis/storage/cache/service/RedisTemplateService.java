@@ -1,4 +1,4 @@
-package spring.redis.storage.service;
+package spring.redis.storage.cache.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

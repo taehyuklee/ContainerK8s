@@ -1,9 +1,9 @@
-package spring.redis.storage.service;
+package spring.redis.storage.cache.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import spring.redis.storage.domain.entity.Person;
-import spring.redis.storage.domain.repository.PersonRedisRepository;
+import spring.redis.domain.entity.Person;
+import spring.redis.domain.repository.PersonRedisRepository;
 
 import java.util.Optional;
 

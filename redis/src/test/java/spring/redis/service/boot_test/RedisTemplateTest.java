@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
-import spring.redis.storage.domain.entity.Person;
+import spring.redis.domain.entity.Person;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;

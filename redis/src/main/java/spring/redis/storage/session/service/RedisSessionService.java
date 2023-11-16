@@ -1,4 +1,4 @@
-package spring.redis.storage.service;
+package spring.redis.storage.session.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

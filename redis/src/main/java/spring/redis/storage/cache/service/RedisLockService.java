@@ -1,9 +1,9 @@
-package spring.redis.storage.service;
+package spring.redis.storage.cache.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import spring.redis.lock.lettuce.RedisLockRepository;
-import spring.redis.storage.domain.entity.Person;
+import spring.redis.domain.entity.Person;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

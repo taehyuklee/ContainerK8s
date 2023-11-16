@@ -1,4 +1,4 @@
-package spring.redis.storage.config;
+package spring.redis.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;

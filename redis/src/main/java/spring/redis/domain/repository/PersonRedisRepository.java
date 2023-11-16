@@ -1,7 +1,7 @@
-package spring.redis.storage.domain.repository;
+package spring.redis.domain.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import spring.redis.storage.domain.entity.Person;
+import spring.redis.domain.entity.Person;
 
 import java.util.Optional;
 

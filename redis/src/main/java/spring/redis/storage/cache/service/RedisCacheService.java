@@ -1,4 +1,4 @@
-package spring.redis.storage.service;
+package spring.redis.storage.cache.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -6,8 +6,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
-import spring.redis.storage.domain.entity.Person;
-import spring.redis.storage.domain.repository.PersonMemoryRepository;
+import spring.redis.domain.entity.Person;
+import spring.redis.domain.repository.PersonMemoryRepository;
 
 @Service
 @RequiredArgsConstructor
