@@ -52,4 +52,9 @@ public class RedisCacheController {
     public Person cahinCaching(@RequestParam(value = "name") String name) throws Exception {
         return redisCacheService.findChainCaching(name);
     }
+
+    @PutMapping("/chain/person")
+    public Person cahinUpdateCaching(@RequestBody Person person) throws Exception {
+        return redisCacheService.updateChainCaching(person);
+    }
 }

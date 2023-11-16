@@ -41,6 +41,7 @@ public class RedisCacheService {
     //Spring data에 있는 Local cache로도 Spring Data와 연동이 되는지
     //local cache, redis cache 동기화
 
+    /************************** 단계별 Caching ****************************/
     @Caching(cacheable ={
         @Cacheable(value = "localCache", cacheManager = "localCacheManager",unless="#result==null"),
         @Cacheable(key = "#name", value = "personCache", cacheManager = "redisCacheManager")
@@ -49,9 +50,19 @@ public class RedisCacheService {
         return personMemoryRepository.getByName(name);
     }
 
+    @Caching(put ={
+            @CachePut(value = "localCache", cacheManager = "localCacheManager",unless="#result==null"),
+            @CachePut(key = "#name", value = "personCache", cacheManager = "redisCacheManager")
+    })
+    public Person updateChainCaching(Person person){
+        return personMemoryRepository.updateByName(person);
+    }
+
     @Cacheable(key = "#name", value = "personCache", cacheManager = "compositeCacheManager")
     public Person findCompositeCaching(String name){
         return personMemoryRepository.getByName(name);
     }
+
+
 
 }
