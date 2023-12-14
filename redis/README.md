@@ -4,6 +4,10 @@ Redis 설명
 
 Server-Side (Operation) 
 
+1. Management of memory
+2. Replication
+3. Sharding
+4. Operation mode
 
 
 
